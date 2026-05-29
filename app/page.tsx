@@ -119,9 +119,7 @@ export default function Home() {
         {/* Navigation */}
         <nav className="space-y-3 relative">
           {navItems.map((item) => {
-            const LucideIcon = Icons[
-              item.icon as keyof typeof Icons
-            ] as React.ElementType;
+            const LucideIcon = item.icon as keyof typeof Icons;
 
             return (
               <button
@@ -142,7 +140,9 @@ export default function Home() {
                     />
                   )}
 
-                  <LucideIcon className="w-5 h-5 z-10 flex-shrink-0" />
+                  {React.createElement(Icons[LucideIcon], {
+                    className: "w-5 h-5 z-10 flex-shrink-0",
+                  })}
 
                   {sidebarOpen && (
                     <span className="z-10 text-sm lg:text-base">
@@ -160,9 +160,7 @@ export default function Home() {
       <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 z-50">
         <div className="flex justify-around items-center py-4">
           {navItems.map((item) => {
-            const LucideIcon = Icons[
-              item.icon as keyof typeof Icons
-            ] as React.ElementType;
+            const LucideIcon = item.icon as keyof typeof Icons;
 
             return (
               <button
@@ -182,7 +180,9 @@ export default function Home() {
                   />
                 )}
 
-                <LucideIcon className="w-5 h-5 z-10 flex-shrink-0" />
+                {React.createElement(Icons[LucideIcon], {
+                  className: "w-5 h-5 z-10 flex-shrink-0",
+                })}
 
                 <span className="text-xs z-10">{item.name}</span>
               </button>
@@ -251,9 +251,7 @@ export default function Home() {
                 {/* Course Cards */}
                 {courses.map((course) => {
                   const LucideIcon =
-                    (Icons[
-                      course.icon_name as keyof typeof Icons
-                    ] as React.ElementType) || Icons.BookOpen;
+                    (course.icon_name as keyof typeof Icons) || "BookOpen";
 
                   return (
                     <motion.article
@@ -273,7 +271,9 @@ export default function Home() {
                       <div className="relative z-10">
                         <div className="flex items-center justify-between">
                           <div className="p-3 rounded-2xl bg-slate-800">
-                            <LucideIcon className="w-6 h-6 text-blue-400" />
+                            {React.createElement(Icons[LucideIcon], {
+                              className: "w-6 h-6 text-blue-400",
+                            })}
                           </div>
 
                           <span className="text-sm text-slate-400">
