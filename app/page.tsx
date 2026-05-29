@@ -112,22 +112,7 @@ export default function Home() {
             <p className="text-6xl font-bold mt-4">7 Days</p>
           </motion.div>
 
-        {loading ? (
-  <>
-    <motion.div
-      variants={skeletonItemVariants}
-      className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"
-    ></motion.div>
-    <motion.div
-      variants={skeletonItemVariants}
-      className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"
-    ></motion.div>
-    <motion.div
-      variants={skeletonItemVariants}
-      className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"
-    ></motion.div>
-  </>
-) : (
+        {courses.length > 0 ? (
   courses.map((course: any) => (
     <motion.div
       key={course.id}
@@ -147,6 +132,12 @@ export default function Home() {
       </div>
     </motion.div>
   ))
+) : (
+  <>
+    <motion.div variants={skeletonItemVariants} className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"></motion.div>
+    <motion.div variants={skeletonItemVariants} className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"></motion.div>
+    <motion.div variants={skeletonItemVariants} className="bg-slate-700 p-6 rounded-lg h-32 animate-pulse"></motion.div>
+  </>
 )}
 
           <motion.div
