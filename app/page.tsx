@@ -120,8 +120,8 @@ export default function Home() {
       whileHover={{ scale: 1.05 }}
       className="bg-slate-800 p-6 rounded-lg cursor-pointer"
     >
-      <h3 className="text-xl font-bold">{course.title}</h3>
-      <p className="text-sm text-gray-400 mt-2">{course.progress}% Complete</p>
+      <h3 className="text-xl font-bold">{Course.title}</h3>
+      <p className="text-sm text-gray-400 mt-2">{Course.progress}% Complete</p>
       <div className="bg-slate-700 h-2 rounded-full mt-4">
         <motion.div
           className="bg-green-500 h-2 rounded-full"
@@ -145,7 +145,7 @@ export default function Home() {
             className="col-span-3 bg-slate-800 p-6 rounded-lg"
           >
             <h3 className="text-2xl font-bold">Activity</h3>
-            <p className="text-gray-400 mt-4">Courses: {courses.length}</p>
+            <p className="text-gray-400 mt-4">Courses: {Courses.length}</p>
 
         </motion.div>
         </motion.div>
