@@ -1,9 +1,9 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import * as Icons from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 interface Course {
   id: string;
@@ -31,8 +31,8 @@ export default function Home() {
         const { data, error } = await supabase.from("Courses").select("*");
 
         if (error) {
-          setError("Failed to load courses");
           console.error(error);
+          setError("Failed to load courses");
           return;
         }
 
@@ -49,13 +49,24 @@ export default function Home() {
   }, []);
 
   const navItems = [
-    { name: "Dashboard", icon: "LayoutDashboard" },
-    { name: "Courses", icon: "BookOpen" },
-    { name: "Profile", icon: "User" },
+    {
+      name: "Dashboard",
+      icon: "LayoutDashboard",
+    },
+    {
+      name: "Courses",
+      icon: "BookOpen",
+    },
+    {
+      name: "Profile",
+      icon: "User",
+    },
   ];
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {
+      opacity: 0,
+    },
     visible: {
       opacity: 1,
       transition: {
@@ -64,8 +75,11 @@ export default function Home() {
     },
   };
 
-  const itemVariants: any = {
-    hidden: { opacity: 0, y: 20 },
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
     visible: {
       opacity: 1,
       y: 0,
@@ -82,9 +96,10 @@ export default function Home() {
       {/* Desktop Sidebar */}
       <aside
         className={`hidden md:flex flex-col ${
-          sidebarOpen ? "lg:w-64 md:w-24" : "w-20"
-        } bg-slate-900/95 backdrop-blur-xl p-6 h-screen sticky top-0 transition-all duration-300 border-r border-slate-800`}
+          sidebarOpen ? "lg:w-64 md:w-24" : "w-24"
+        } bg-slate-900/95 backdrop-blur-xl pt-6 pb-6 pr-6 pl-3 h-screen sticky top-0 transition-all duration-300 border-r border-slate-800`}
       >
+        {/* Collapse Button */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="mb-8 text-2xl hover:scale-110 transition-transform self-start"
@@ -92,17 +107,21 @@ export default function Home() {
           ☰
         </button>
 
+        {/* Logo */}
         <h2
           className={`${
-            sidebarOpen ? "text-2xl" : "text-sm"
+            sidebarOpen ? "text-2xl" : "text-lg"
           } font-bold mb-10 tracking-wide`}
         >
           {sidebarOpen ? "EduFlow" : "EF"}
         </h2>
 
+        {/* Navigation */}
         <nav className="space-y-3 relative">
           {navItems.map((item) => {
-            const LucideIcon = Icons[item.icon as keyof typeof Icons];
+            const LucideIcon = Icons[
+              item.icon as keyof typeof Icons
+            ] as React.ElementType;
 
             return (
               <button
@@ -110,9 +129,7 @@ export default function Home() {
                 onClick={() => setActiveTab(item.name)}
                 className="relative w-full"
               >
-                <div
-                  className={`flex items-center gap-3 p-2 pr-7 rounded-xl relative overflow-hidden`}
-                >
+                <div className="flex items-center gap-3 p-3 rounded-xl relative overflow-hidden">
                   {activeTab === item.name && (
                     <motion.div
                       layoutId="sidebar-highlight"
@@ -127,7 +144,11 @@ export default function Home() {
 
                   <LucideIcon className="w-5 h-5 z-10 flex-shrink-0" />
 
-                  {sidebarOpen && <span className="z-10">{item.name}</span>}
+                  {sidebarOpen && (
+                    <span className="z-10 text-sm lg:text-base">
+                      {item.name}
+                    </span>
+                  )}
                 </div>
               </button>
             );
@@ -139,7 +160,9 @@ export default function Home() {
       <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 z-50">
         <div className="flex justify-around items-center py-4">
           {navItems.map((item) => {
-            const LucideIcon = Icons[item.icon as keyof typeof Icons];
+            const LucideIcon = Icons[
+              item.icon as keyof typeof Icons
+            ] as React.ElementType;
 
             return (
               <button
@@ -159,7 +182,8 @@ export default function Home() {
                   />
                 )}
 
-                <LucideIcon className="w-5 h-5 z-10" />
+                <LucideIcon className="w-5 h-5 z-10 flex-shrink-0" />
+
                 <span className="text-xs z-10">{item.name}</span>
               </button>
             );
@@ -169,6 +193,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 md:p-6 xl:p-8 pb-28 md:pb-8">
+        {/* Header */}
         <header className="mb-8">
           <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold">
             Welcome back, Shivam
@@ -177,6 +202,7 @@ export default function Home() {
           <p className="text-slate-400 mt-2">Continue your learning journey.</p>
         </header>
 
+        {/* Error State */}
         {error ? (
           <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-6 rounded-2xl">
             {error}
@@ -225,8 +251,9 @@ export default function Home() {
                 {/* Course Cards */}
                 {courses.map((course) => {
                   const LucideIcon =
-                    Icons[course.icon_name as keyof typeof Icons] ||
-                    Icons.BookOpen;
+                    (Icons[
+                      course.icon_name as keyof typeof Icons
+                    ] as React.ElementType) || Icons.BookOpen;
 
                   return (
                     <motion.article
@@ -323,6 +350,7 @@ export default function Home() {
 
                 <div className="flex items-center justify-between mt-8 text-sm text-slate-400">
                   <span>Total Courses: {courses.length}</span>
+
                   <span>Consistency: 92%</span>
                 </div>
               </div>
