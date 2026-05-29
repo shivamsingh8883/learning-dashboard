@@ -1,21 +1,72 @@
 "use client";
 
-import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [courses, setCourses] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      try {
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        );
+        const { data, error } = await supabase.from("Courses").select("*");
+
+        if (error) {
+          console.error("Error fetching:", error);
+          return;
+        }
+
+        console.log("Fetched courses:", data);
+        setCourses(data || []);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+      setLoading(false);
+    }
+
+    fetchCourses();
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 300, damping: 20 },
+    },
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex">
-      {/* Sidebar */}
       <aside
         className={`${sidebarOpen ? "w-64" : "w-20"} bg-slate-900 p-6 h-screen fixed md:relative left-0 top-0 z-50 transition-all duration-300`}
       >
-        <div className="flex justify-between items-center mb-8">
-          <h2 className={`${sidebarOpen ? "text-2xl" : "text-sm"} font-bold`}>
-            {sidebarOpen ? "Logo" : "L"}
-          </h2>
-        </div>
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="mb-8 text-2xl"
+        >
+          ☰
+        </button>
+        <h2
+          className={`${sidebarOpen ? "text-2xl" : "text-sm"} font-bold mb-8`}
+        >
+          {sidebarOpen ? "Logo" : "L"}
+        </h2>
         <nav className="space-y-4">
           <div className="p-3 bg-blue-600 rounded-lg cursor-pointer">
             {sidebarOpen ? "Dashboard" : "📊"}
@@ -29,72 +80,55 @@ export default function Home() {
         </nav>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 md:p-8 md:ml-0 ml-20">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold">
-            Welcome back, Shivam
-          </h1>
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden bg-blue-600 p-2 rounded-lg text-xl"
+      <main
+        className={`flex-1 p-8 ${sidebarOpen ? "ml-64" : "ml-20"} transition-all duration-300`}
+      >
+        <h1 className="text-4xl font-bold mb-8">Welcome back, Shivam</h1>
+
+        <motion.div
+          className="grid grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="col-span-2 bg-gradient-to-br from-blue-600 to-blue-800 p-8 rounded-lg hover:shadow-lg transition-shadow"
           >
-            ☰
-          </button>
-        </div>
+            <h2 className="text-3xl font-bold">Learning Streak</h2>
+            <p className="text-6xl font-bold mt-4">7 Days</p>
+          </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Hero Tile */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 to-blue-800 p-6 md:p-8 rounded-lg">
-            <h2 className="text-2xl md:text-3xl font-bold">Learning Streak</h2>
-            <p className="text-4xl md:text-6xl font-bold mt-4">7 Days</p>
-          </div>
+          {courses.map((course: any) => (
+            <motion.div
+              key={course.id}
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              className="bg-slate-800 p-6 rounded-lg cursor-pointer"
+            >
+              <h3 className="text-xl font-bold">{course.title}</h3>
+              <p className="text-sm text-gray-400 mt-2">
+                {course.progress}% Complete
+              </p>
+              <div className="bg-slate-700 h-2 rounded-full mt-4">
+                <motion.div
+                  className="bg-green-500 h-2 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${course.progress}%` }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                ></motion.div>
+              </div>
+            </motion.div>
+          ))}
 
-          {/* Course Tile 1 */}
-          <div className="bg-slate-800 p-6 rounded-lg">
-            <h3 className="text-lg font-bold">React Basics</h3>
-            <p className="text-sm text-gray-400 mt-2">75% Complete</p>
-            <div className="bg-slate-700 h-2 rounded-full mt-4">
-              <div
-                className="bg-green-500 h-2 rounded-full"
-                style={{ width: "75%" }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Course Tile 2 */}
-          <div className="bg-slate-800 p-6 rounded-lg">
-            <h3 className="text-lg font-bold">Next.js</h3>
-            <p className="text-sm text-gray-400 mt-2">60% Complete</p>
-            <div className="bg-slate-700 h-2 rounded-full mt-4">
-              <div
-                className="bg-yellow-500 h-2 rounded-full"
-                style={{ width: "60%" }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Course Tile 3 */}
-          <div className="bg-slate-800 p-6 rounded-lg">
-            <h3 className="text-lg font-bold">Tailwind</h3>
-            <p className="text-sm text-gray-400 mt-2">90% Complete</p>
-            <div className="bg-slate-700 h-2 rounded-full mt-4">
-              <div
-                className="bg-purple-500 h-2 rounded-full"
-                style={{ width: "90%" }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Activity Tile */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-3 bg-slate-800 p-6 rounded-lg">
-            <h3 className="text-xl font-bold">Activity</h3>
-            <p className="text-gray-400 mt-4">
-              You've been coding 5 days this week!
-            </p>
-          </div>
-        </div>
+          <motion.div
+            variants={itemVariants}
+            className="col-span-3 bg-slate-800 p-6 rounded-lg"
+          >
+            <h3 className="text-2xl font-bold">Activity</h3>
+            <p className="text-gray-400 mt-4">Courses: {courses.length}</p>
+          </motion.div>
+        </motion.div>
       </main>
     </div>
   );
