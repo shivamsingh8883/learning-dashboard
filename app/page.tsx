@@ -148,6 +148,7 @@ export default function Home() {
             <p className="text-gray-400 mt-4">Courses: {courses.length}</p>
 
         </motion.div>
+        </motion.div>
       </main>
     </div>
   );
