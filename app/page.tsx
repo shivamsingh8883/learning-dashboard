@@ -146,7 +146,7 @@ export default function Home() {
           >
             <h3 className="text-2xl font-bold">Activity</h3>
             <p className="text-gray-400 mt-4">Courses: {courses.length}</p>
-          </>
+
         </motion.div>
       </main>
     </div>
