@@ -80,9 +80,7 @@ export default function Home() {
         </nav>
       </aside>
 
-      <main
-        className={`flex-1 p-8 ${sidebarOpen ? "ml-64" : "ml-20"} transition-all duration-300`}
-      >
+      <main className={`flex-1 p-8 transition-all duration-300`}>
         <h1 className="text-4xl font-bold mb-8">Welcome back, Shivam</h1>
 
         <motion.div
