@@ -1,3 +1,4 @@
+throw new Error("TEST ERROR");
 import { HomeClient } from "@/components/HomeClient";
 
 export const dynamic = "force-dynamic";
