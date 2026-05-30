@@ -308,9 +308,9 @@ export function HomeClient({ courses }: HomeClientProps) {
               </div>
 
               <div>
-                <p className="text-gray-400 text-sm">Current Streak</p>
+                <p className="text-gray-400 text-sm">Longest Streak</p>
 
-                <p className="text-3xl font-bold mt-1 text-blue-400">7 Days</p>
+                <p className="text-3xl font-bold mt-1 text-blue-400">12 Days</p>
               </div>
 
               <div>
