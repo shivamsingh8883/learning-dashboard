@@ -118,7 +118,7 @@ export function HomeClient({ courses }: HomeClientProps) {
 
       <main className="flex-1 p-4 md:p-6 lg:p-8 transition-all duration-300 pb-24 md:pb-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-8">
-          Welcome back, Shivam
+          Welcome back, Andaz Kumar
         </h1>
 
         <motion.div
