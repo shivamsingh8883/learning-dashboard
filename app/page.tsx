@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { HomeClient } from "@/components/HomeClient";
 
+export const dynamic = "force-dynamic";
+
 interface Course {
   id: string;
   title: string;
@@ -32,6 +34,7 @@ export default async function Home() {
     const { data, error } = await supabase.from("Courses").select("*");
 
     console.log("SUPABASE DATA:", data);
+    console.log("DATA LENGTH:", data?.length);
     console.log("SUPABASE ERROR:", error);
 
     if (error) {
