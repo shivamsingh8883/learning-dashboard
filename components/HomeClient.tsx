@@ -82,7 +82,7 @@ export function HomeClient({ courses }: HomeClientProps) {
       >
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="mb-8 text-2xl cursor-pointer hover:opacity-80 transition-opacity"
+          className="mb-8 text-2xl cursor-pointer hover:opacity-80 transition-opacity flex justify-start"
         >
           ☰
         </button>
