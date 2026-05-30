@@ -64,13 +64,12 @@ export function HomeClient({ courses }: HomeClientProps) {
       <aside
         className={`
           ${sidebarOpen ? "w-64" : "w-20"}
+          sticky 
+          top-0
           bg-slate-900
           p-6
-          h-screen
-          fixed
+          h-full-screen
           md:relative
-          left-0
-          top-0
           z-50
           transition-all
           duration-300
@@ -83,7 +82,7 @@ export function HomeClient({ courses }: HomeClientProps) {
       >
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="mb-8 text-2xl"
+          className="mb-8 text-2xl flex justify-start"
         >
           ☰
         </button>
@@ -111,13 +110,11 @@ export function HomeClient({ courses }: HomeClientProps) {
         </nav>
       </aside>
 
-
       <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center p-4 md:hidden z-50 backdrop-blur-lg">
         <button className="text-blue-400 text-xl">📊</button>
         <button className="text-gray-400 text-xl">📚</button>
         <button className="text-gray-400 text-xl">👤</button>
       </div>
-
 
       <main className="flex-1 p-4 md:p-6 lg:p-8 transition-all duration-300 pb-24 md:pb-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-8">
@@ -136,7 +133,6 @@ export function HomeClient({ courses }: HomeClientProps) {
           initial="hidden"
           animate="visible"
         >
-
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.01 }}
@@ -164,7 +160,6 @@ export function HomeClient({ courses }: HomeClientProps) {
 
             <p className="text-5xl md:text-6xl font-bold mt-4">7 Days</p>
           </motion.div>
-
 
           {courses.length > 0 ? (
             courses.map((course: Course) => {
@@ -199,7 +194,6 @@ export function HomeClient({ courses }: HomeClientProps) {
                     hover:shadow-blue-500/20
                   "
                 >
-
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-cyan-500/5 pointer-events-none" />
 
                   <div className="relative z-10">
@@ -224,7 +218,6 @@ export function HomeClient({ courses }: HomeClientProps) {
                     <p className="text-sm text-gray-400 mt-2">
                       {course.progress}% Complete
                     </p>
-
 
                     <div className="bg-slate-700 h-2 rounded-full mt-4 overflow-hidden">
                       <motion.div
@@ -285,7 +278,6 @@ export function HomeClient({ courses }: HomeClientProps) {
               />
             </>
           )}
-
 
           <motion.div
             variants={itemVariants}
