@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { HomeClient } from "@/components/HomeClient";
 
+export const revalidate = 0;
+
 interface Course {
   id: string;
   title: string;
