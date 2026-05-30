@@ -12,7 +12,7 @@ export default async function Home() {
   let courses: Course[] = [
     {
       id: "1",
-      title: "Next.js Advanced",
+      title: "Next.js",
       progress: 60,
       icon_name: "Zap",
     },
