@@ -9,28 +9,21 @@ interface Course {
 }
 
 export default async function Home() {
-  let courses: Course[] = [
-    {
-      id: "1",
-      title: "Next.js",
-      progress: 60,
-      icon_name: "Zap",
-    },
-    {
-      id: "2",
-      title: "React Basics",
-      progress: 75,
-      icon_name: "BookOpen",
-    },
-    {
-      id: "3",
-      title: "Framer Motion",
-      progress: 40,
-      icon_name: "Sparkles",
-    },
-  ];
+  let courses: Course[] = [];
 
   try {
+    console.log("===== SUPABASE DEBUG START =====");
+
+    console.log(
+      "NEXT_PUBLIC_SUPABASE_URL:",
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+    );
+
+    console.log(
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY EXISTS:",
+      !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    );
+
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL || "",
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -38,15 +31,20 @@ export default async function Home() {
 
     const { data, error } = await supabase.from("Courses").select("*");
 
+    console.log("SUPABASE DATA:", data);
+    console.log("SUPABASE ERROR:", error);
+
     if (error) {
-      console.error("Supabase error:", error);
+      throw error;
     }
 
-    if (data && data.length > 0) {
+    if (data) {
       courses = data;
     }
+
+    console.log("===== SUPABASE DEBUG END =====");
   } catch (err) {
-    console.error("Catch error:", err);
+    console.error("CATCH ERROR:", err);
   }
 
   return <HomeClient courses={courses} />;
