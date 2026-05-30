@@ -73,11 +73,8 @@ Open http://localhost:3000
 
 ## Deployment
 
-Deploy to Vercel:
+This project is deployed on Vercel.
 
-```bash
-git push origin main
-```
+**Live Demo:** https://learning-dashboard-olive.vercel.app
 
-Connect your GitHub repo to Vercel and it deploys automatically.
 
