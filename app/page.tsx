@@ -17,7 +17,9 @@ export default async function Home() {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     );
 
-    const { data } = await supabase.from("Courses").select("*");
+const { data } = await supabase
+  .from("Courses")
+  .select("id, title, progress, icon_name");
     courses = data || [];
   } catch (err) {
     console.error("Error:", err);
