@@ -96,15 +96,15 @@ export function HomeClient({ courses }: HomeClientProps) {
         </h2>
 
         <nav className="space-y-4">
-          <div className="p-1 pr-6 bg-blue-600 rounded-xl cursor-pointer transition-all duration-300 hover:bg-blue-500">
+          <div className="p-2 pr-7 bg-blue-600 rounded-xl cursor-pointer transition-all duration-300 hover:bg-blue-500">
             {sidebarOpen ? "Dashboard" : "📊"}
           </div>
 
-          <div className="p-3 hover:bg-slate-800 rounded-xl cursor-pointer transition-all duration-300">
+          <div className="p-2 pr-7 hover:bg-slate-800 rounded-xl cursor-pointer transition-all duration-300">
             {sidebarOpen ? "Courses" : "📚"}
           </div>
 
-          <div className="p-3 hover:bg-slate-800 rounded-xl cursor-pointer transition-all duration-300">
+          <div className="p-2 pr-7 hover:bg-slate-800 rounded-xl cursor-pointer transition-all duration-300">
             {sidebarOpen ? "Profile" : "👤"}
           </div>
         </nav>
